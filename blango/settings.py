@@ -141,17 +141,22 @@ class Dev(Configuration):
 
     DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-    ADMINS = [("Dinh Vu", "vuvandinh2000@gmail.com")
+    ADMINS = [("Dinh Vu", "vuvandinh2000@gmail.com")]
 
     LOGGING = {
         "version": 1,
         "disable_existing_loggers": False,
-    "formatters": {
-        "verbose": {
-            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
-            "style": "{",
+        "filters": {
+            "require_debug_false": {
+                "()": "django.utils.log.RequireDebugFalse",
+            },
         },
-    },
+        "formatters": {
+            "verbose": {
+                "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+                "style": "{",
+            },
+        },
         "handlers": {
             "console": {
                 "class": "logging.StreamHandler", 
@@ -176,6 +181,13 @@ class Dev(Configuration):
             "level": "DEBUG",
         }
     }
+
+    PASSWORD_HASHERS = [
+        'django.contrib.auth.hashers.Argon2PasswordHasher',
+        'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+        'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+        'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    ]
 
 class Prod(Dev):
     DEBUG = False
