@@ -41,7 +41,7 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     path("api/v1/", include("blog.api_urls")),
     
-        path("post-table/", blog.views.post_table, name="blog-post-table"),
+    path("post-table/", blog.views.post_table, name="blog-post-table"),
 ]
 
 if settings.DEBUG:
